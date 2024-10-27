@@ -23,7 +23,7 @@ struct trie {
         for(int i=0;i<m;i++) v[i] = s[i] - 'a';
         add(v);
     }
-    void add(const vector<int>& s, int f) {
+    void add(const vector<int>& s) {
         int cur = 0;
         for(int c: s){
             if(a[cur].nxt[c] == -1) a[cur].nxt[c] = sz++;
