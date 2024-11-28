@@ -2,7 +2,7 @@ typedef vector<pii> vpii;
 typedef pair<ll,ll> pii;
 // parameters: 
 //   - ll n --> number of vertices
-//   - vector<pii> g[n+1] --> adjacency graph --> g[u] stores a pair {}
+//   - vector<pii> g[n+1] --> adjacency graph --> g[u] stores a pair {v, w}
 //   - ll m --> number of start vertices
 //   - ll s[m] --> start vertices
 //   - ll dis[n+1] --> distances from starting vertices to others
