@@ -1,5 +1,3 @@
-#include "../contest/template.cpp"
-
 struct dsu {
     vector<int> p, rnk;
     dsu(int n) : p(n), rnk(n, 1) { iota(p.begin(), p.end(), 0); }
