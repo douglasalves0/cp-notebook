@@ -1,6 +1,3 @@
-const int ALPHASIZE = 26;
-const int TOTLEN = 1e6;
-
 struct trie {
     
     trie(){}
@@ -16,7 +13,7 @@ struct trie {
     node a[TOTLEN+1];
     int sz = 1;
     
-    void add(const string& s) {
+    void add(string s) {
         int cur = 0;
         a[0].cnt++;
         for(char ch: s){
@@ -28,8 +25,6 @@ struct trie {
         a[cur].ends_here++;
     }
 
-    // supposes that there are at least cnt ocurrences of s inside the trie
-    // erases does not remove connections, only decreases the counter
     void erase(const string& s, int cnt = 1){ 
         int cur = 0;
         a[cur].cnt -= cnt;
@@ -40,19 +35,27 @@ struct trie {
         a[cur].ends_here -= cnt;
     }
 
-    // walks through the trie using the string s and returns the last vertex visited
-    // it returns -1 if s is not at the trie
-    int walk(const string& s){
+    int walk(string s){
         int cur = 0;
         for(char ch: s){
             int c = ch - 'a';
             if(a[cur].nxt[c] == -1) return -1;
             cur = a[cur].nxt[c];
-            // maybe there is a connection, but if the counter is 0 it means that this
-            // connection is no longer useful
             if(a[cur].cnt == 0) return -1; 
         }
         return cur;
+    }
+    
+    int count(string s){
+        int p = walk(s);
+        if(p == -1) return 0;
+        return a[p].ends_here;
+    }
+
+    int count_prefix(string s){
+        int p = walk(s);
+        if(p == -1) return 0;
+        return a[p].cnt;
     }
 
 };
