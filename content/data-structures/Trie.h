@@ -13,6 +13,7 @@ struct trie {
     node a[TOTLEN+1];
     int sz = 1;
     
+    // self explanatory
     void add(string s) {
         int cur = 0;
         a[0].cnt++;
@@ -25,6 +26,8 @@ struct trie {
         a[cur].ends_here++;
     }
 
+    // removes a string from the trie
+    // if the string does not exist inside the trie, it is like you have a negative string
     void erase(const string& s, int cnt = 1){ 
         int cur = 0;
         a[cur].cnt -= cnt;
@@ -35,6 +38,8 @@ struct trie {
         a[cur].ends_here -= cnt;
     }
 
+    // returns the index of the node that have the string s
+    // if the string s is not a prefix of any string inside the trie, returns -1
     int walk(string s){
         int cur = 0;
         for(char ch: s){
@@ -46,12 +51,14 @@ struct trie {
         return cur;
     }
     
+    // count the number of strings exactly equal to s inside the trie
     int count(string s){
         int p = walk(s);
         if(p == -1) return 0;
         return a[p].ends_here;
     }
 
+    // count the number of strings inside the trie that have s as a prefix
     int count_prefix(string s){
         int p = walk(s);
         if(p == -1) return 0;
