@@ -1,3 +1,9 @@
+/**
+ * Author: Eu
+ * Description: Comprime um array e salva em ca o array comprimido
+ * Time: O(\log n) query O(\log n) build
+ */
+
 #define all(v) v.begin(),v.end()
 vector<int> ca; // compressed array
 void compress(vector<int> v){

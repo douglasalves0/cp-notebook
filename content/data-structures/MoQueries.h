@@ -1,5 +1,6 @@
 /**
  * Author: Simon Lindholm
+ * Description: Mo queries
  * Date: 2019-12-28
  * License: CC0
  * Source: https://github.com/hoke-t/tamu-kactl/blob/master/content/data-structures/MoQueries.h

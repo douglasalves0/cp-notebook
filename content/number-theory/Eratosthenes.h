@@ -1,22 +1,24 @@
 /**
- * Author: Håkan Terelius
- * Date: 2009-08-26
- * License: CC0
- * Source: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
- * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime.
- * Time: lim=100'000'000 $\approx$ 0.8 s. Runs 30\% faster if only odd indices are stored.
- * Status: Tested
+ * Author: Eu
+ * Description: Roda o crivo e gera o array pf, tal que pf[x] = menor fator primo de x
+ * Time: O(n log log n)
+ * Memory: O(N)
  */
-#pragma once
 
-const int MAX_PR = 5'000'000;
-bitset<MAX_PR> isprime;
-vi eratosthenesSieve(int lim) {
-	isprime.set(); isprime[0] = isprime[1] = 0;
-	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
-	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
-		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
-	vi pr;
-	rep(i,2,lim) if (isprime[i]) pr.push_back(i);
-	return pr;
+const int MAXN = 1e6;
+int pf[MAXN+1]; // pf[x] = lowest prime factor of x
+void sieve(){ // x is prime if pf[x] = x
+	for(int i=2;i<=MAXN;i++){
+		if(pf[i]) continue;
+		pf[i] = i;
+		for(int j=i*i;j<=MAXN;j+=i) if(!pf[j]) pf[j] = i;
+	}
+}
+vector<int> fact(int x){
+	vector<int> ans;
+	while(pf[x]){
+		ans.push_back(pf[x]);
+		x /= pf[x];
+	}
+	return ans;
 }

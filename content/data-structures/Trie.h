@@ -1,3 +1,9 @@
+/**
+ * Author: Eu
+ * Description: Builda uma árvore com prefixos de strings
+ * Time: O(|s|)
+ */
+
 struct trie {
     
     trie(){}

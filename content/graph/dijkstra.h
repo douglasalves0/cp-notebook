@@ -1,3 +1,10 @@
+/**
+ * Author: Eu
+ * Description: solves the sssp problem
+ * Time: O(n log m)
+ * Memory: O(N)
+ */
+
 typedef vector<pii> vpii;
 typedef pair<ll,ll> pii;
 // parameters: 
