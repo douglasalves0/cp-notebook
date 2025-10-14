@@ -12,8 +12,8 @@ vector<ll> bounded_knapsack(vector<ll> a){
     vector<ll> old(s+1, -1), cur(s+1);
     old[0] = 0;
     for(auto [k, v]: b){ // sqrt(S)
-        for(int i=0;i<=s;i++){ // S
-            op++;
+        if(!k) continue;
+        for(ll i=0;i<=s;i++){ // S
             if(old[i] >= 0){
                 cur[i] = 0;
             }else if(i - k >= 0 && cur[i - k] >= 0 && cur[i - k] < v){
