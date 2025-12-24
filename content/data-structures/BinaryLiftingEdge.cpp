@@ -7,7 +7,7 @@ struct BinaryLiftingEdge{
 
     const ll UNIT = 0; // UNIT para máximo
 
-    BinaryLifting(ll n) : n(n) {
+    BinaryLiftingEdge(ll n) : n(n) {
         adj.resize(n);
         up.assign(n, vi(LOG));
         dp.assign(n, vi(LOG));
@@ -78,5 +78,23 @@ struct BinaryLiftingEdge{
             v = up[v][i];
         }
         return up[u][0];
+    }
+};
+
+struct dsu {
+    vector<int> p, rnk;
+    dsu(int n) : p(n), rnk(n, 1) {
+        iota(p.begin(), p.end(), 0);
+    }
+    int find(int x) {
+        return p[x] == x ? x : p[x] = find(p[x]);
+    }
+    bool join(int a, int b) {
+        a = find(a); b = find(b);
+        if (a == b) return false;
+        if (rnk[a] < rnk[b]) swap(a, b);
+        p[b] = a;
+        rnk[a] += rnk[b];
+        return true;
     }
 };
