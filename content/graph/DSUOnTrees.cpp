@@ -30,6 +30,5 @@ void dfs(ll v, ll p, ll keep){
     // at this point you should have the answer calculated
     // to the v's subtree
     // [MODIFY]
-    if(keep) return;
-    upd(v, p, -1, 0); // remove everyone from v's subtree
+    if(!keep) upd(v, p, -1, 0); // remove everyone from v's subtree
 }
