@@ -18,13 +18,13 @@ void dijkstra(ll n, vpii* g, ll m, ll* s, ll* dis){
     set<pii> q;
     for(ll i=0;i<m;i++) dis[s[i]] = 0, q.insert({0, s[i]});
     while(!q.empty()){
-        auto& [d, v] = *q.begin();
+        auto [d, v] = *q.begin();
+        q.erase(q.begin());
         for(auto& [u, w]: g[v]){
             if(d + w >= dis[u]) continue;
             q.erase({dis[u], u});
             dis[u] = d + w;
             q.insert({dis[u], u});
         }
-        q.erase(q.begin());
     }
 }
