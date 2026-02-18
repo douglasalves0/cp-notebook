@@ -11,12 +11,12 @@ void pre(ll v, ll p){
         if(heavy[v] == -1 || sz[u] > sz[heavy[v]]) heavy[v] = u;
     }
 }
-void upd(ll v, ll p, ll to_ignore, ll to_add){
-    if(to_add){ /* add vertex v to the answer [MODIFY] */ }
+void upd(ll v, ll p, ll to_ignore){
+    if(to_ignore != -1){ /* add vertex v to the answer [MODIFY] */ }
     else{ /* remove vertex v from the answer [MODIFY] */ }
     for(ll u: graph[v]){
         if(u == p || u == to_ignore) continue;
-        upd(u, v, to_ignore, to_add);
+        upd(u, v, to_ignore);
     }
 }
 // then call this second: dfs(root, -1, 0)
@@ -25,9 +25,9 @@ void dfs(ll v, ll p, ll keep){
         if(u == p) continue;
         dfs(u, v, u == heavy[v]);
     }
-    upd(v, p, heavy[v], 1); // add everyone from v's subtree, except the heavy[v]'s subtree
+    upd(v, p, heavy[v]); // add everyone from v's subtree, except the heavy[v]'s subtree
     // at this point you should have the answer calculated
     // to the v's subtree
     // [MODIFY]
-    if(!keep) upd(v, p, -1, 0); // remove everyone from v's subtree
+    if(!keep) upd(v, p, -1); // remove everyone from v's subtree
 }
