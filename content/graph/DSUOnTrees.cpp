@@ -22,10 +22,9 @@ void upd(ll v, ll p, ll to_ignore, ll to_add){
 // then call this second: dfs(root, -1, 0)
 void dfs(ll v, ll p, ll keep){
     for(ll u: graph[v]){
-        if(u == p || u == heavy[v]) continue;
-        dfs(u, v, 0);
+        if(u == p) continue;
+        dfs(u, v, u == heavy[v]);
     }
-    if(heavy[v] != -1) dfs(heavy[v], v, 1);
     upd(v, p, heavy[v], 1); // add everyone from v's subtree, except the heavy[v]'s subtree
     // at this point you should have the answer calculated
     // to the v's subtree
