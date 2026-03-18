@@ -5,24 +5,24 @@ struct seg {
     vector<TT> tree;
 
     typedef int LT; // type of lazy nodes
-    static constexpr LT lazy_unit = 0;
+    static constexpr LT lazy_invalid = -1;
     vector<LT> lazy;
     
     int n;
     seg(int N) {
         n = N;
         tree.resize(4*n, unit);
-        lazy.resize(4*n, lazy_unit);
+        lazy.resize(4*n, lazy_invalid);
     }
 
     void push(int no, int l, int r){
-        if(lazy[no] == lazy_unit) return;
+        if(lazy[no] == lazy_invalid) return;
         // update tree[no] using lazy[no]
         if(l < r){
             // update lazy[no*2] using lazy[no]
             // update lazy[no*2+1] using lazy[no]
         }
-        lazy[no] = lazy_unit;
+        lazy[no] = lazy_invalid;
     }
 
     TT f(TT l, TT r){ return l + r; }
