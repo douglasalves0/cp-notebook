@@ -77,48 +77,48 @@ struct seg {
 // This runs a dfs from 0, so your graph should be 0-indexed
 // At the start, all the vertices have the default value of the segtree
 template <bool VALS_EDGES> struct HLD {
-	ll N, tim = 0;
-	vector<vi> adj;
-	vi par, siz, depth, rt, pos;
+    ll N, tim = 0;
+    vector<vi> adj;
+    vi par, siz, depth, rt, pos;
     seg tree;
-	HLD(vector<vi> adj_)
-		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
-		  rt(N),pos(N), tree(N){ dfsSz(0); dfsHld(0); }
-	void dfsSz(ll v) {
-		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
-		for (ll& u : adj[v]) {
-			par[u] = v, depth[u] = depth[v] + 1;
-			dfsSz(u);
-			siz[v] += siz[u];
-			if (siz[u] > siz[adj[v][0]]) swap(u, adj[v][0]);
-		}
-	}
-	void dfsHld(ll v) {
-		pos[v] = tim++;
-		for (ll u : adj[v]) {
-			rt[u] = (u == adj[v][0] ? rt[v] : u);
-			dfsHld(u);
-		}
-	}
-	template <class B> void process(ll u, ll v, B op) {
-		for (; rt[u] != rt[v]; v = par[rt[v]]) {
-			if (depth[rt[u]] > depth[rt[v]]) swap(u, v);
-			op(pos[rt[v]], pos[v]);
-		}
-		if (depth[u] > depth[v]) swap(u, v);
-		op(pos[u] + VALS_EDGES, pos[v]);
-	}
-	void updatePath(ll u, ll v, TT val) {
-		process(u, v, [&](ll l, ll r) { tree.update(l, r, val); });
-	}
-	TT queryPath(ll u, ll v){
-		TT res = UNIT;
-		process(u, v, [&](ll l, ll r) { res = f(res, tree.query(l, r)); });
-		return res;
-	}
-	TT querySubtree(ll v){
-		return tree.query(pos[v] + VALS_EDGES, pos[v] + siz[v] - 1);
-	}
+    HLD(vector<vi> adj_)
+        : N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
+            rt(N),pos(N), tree(N){ dfsSz(0); dfsHld(0); }
+    void dfsSz(ll v) {
+        if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
+        for (ll& u : adj[v]) {
+            par[u] = v, depth[u] = depth[v] + 1;
+            dfsSz(u);
+            siz[v] += siz[u];
+            if (siz[u] > siz[adj[v][0]]) swap(u, adj[v][0]);
+        }
+    }
+    void dfsHld(ll v) {
+        pos[v] = tim++;
+        for (ll u : adj[v]) {
+            rt[u] = (u == adj[v][0] ? rt[v] : u);
+            dfsHld(u);
+        }
+    }
+    template <class B> void process(ll u, ll v, B op) {
+        for (; rt[u] != rt[v]; v = par[rt[v]]) {
+            if (depth[rt[u]] > depth[rt[v]]) swap(u, v);
+            op(pos[rt[v]], pos[v]);
+        }
+        if (depth[u] > depth[v]) swap(u, v);
+        op(pos[u] + VALS_EDGES, pos[v]);
+    }
+    void updatePath(ll u, ll v, TT val) {
+        process(u, v, [&](ll l, ll r) { tree.update(l, r, val); });
+    }
+    TT queryPath(ll u, ll v){
+        TT res = UNIT;
+        process(u, v, [&](ll l, ll r) { res = f(res, tree.query(l, r)); });
+        return res;
+    }
+    TT querySubtree(ll v){
+        return tree.query(pos[v] + VALS_EDGES, pos[v] + siz[v] - 1);
+    }
     void updateSubtree(ll v, TT val){
         tree.update(pos[v] + VALS_EDGES, pos[v] + siz[v] - 1, val);
     }
