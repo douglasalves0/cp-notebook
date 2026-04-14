@@ -29,14 +29,12 @@ vector<ll> lazy;
 TT f(TT l, TT r){ return l + r; }
 
 struct seg {
-        
     ll n;
     seg(ll N) {
         n = N;
         tree.resize(4*n, UNIT);
         lazy.resize(4*n, LAZY_INVALID);
     }
-
     void push(ll no, ll l, ll r){
         if(lazy[no] == LAZY_INVALID) return;
         // update tree[no] using lazy[no]
@@ -49,7 +47,6 @@ struct seg {
         }
         lazy[no] = LAZY_INVALID;
     }
-
     void update(ll no, ll l, ll r, ll x, ll y, TT v) {
         push(no, l, r);
         if(x > y || r < x || y < l) return;
