@@ -1,6 +1,8 @@
 // sample hld code that updates by summing into a range
 // vertices are 0-indexed
 // the root of hld is vertex 0
+// the graph should be undirected
+// if there is an edge (x,y) the edge (y,x) should exist on the adj. list
 //
 // to use this you SHOULD update
 // 1. UNIT
