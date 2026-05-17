@@ -7,22 +7,22 @@
 vector<ll> graph[200010];
 ll n;
 bool eulerian_path_exists(ll u, ll v){
-    vector<ll> impares;
-    ll edges = 0;
+    vector<ll> odd;
+    ll e = 0;
     for(ll i=1;i<=n;i++){
-        edges += graph[i].size();
+        e += graph[i].size();
         if(graph[i].size() % 2 == 0) continue;
-        impares.push_back(i);
-        if(impares.size() > 2) return 0;
+        odd.push_back(i);
+        if(odd.size() > 2) return 0;
     }
     auto cmp = [](ll x, ll y){ return x == -1 || y == -1 ? 1 : x == y; };
-    if(!edges) return cmp(u, v);
-    ll cnt = 0, found[n+1] = {0};
+    if(!e) return cmp(u, v);
+    ll cnt = 0, ok[n+1] = {0};
     function<void(ll)> dfs = [&](ll v){
-        found[v] = 1;
+        ok[v] = 1;
         for(ll u: graph[v]){
             cnt += 1;
-            if(found[u]) continue;
+            if(ok[u]) continue;
             dfs(u);
         }
     };
@@ -31,15 +31,14 @@ bool eulerian_path_exists(ll u, ll v){
         dfs(i);
         break;
     }
-    if(cnt != edges) return 0;
-    if(impares.empty()){
+    if(cnt != e) return 0;
+    if(odd.empty()){
         if(!cmp(u, v)) return 0;
         u = max(u, v);
-        if(u != -1 && !found[u]) return 0;
+        if(u != -1 && !ok[u]) return 0;
         return 1;
     }
-    int x = impares.front();
-    int y = impares.back();
+    int x = odd[0], y = odd[1];
     if(!(cmp(u, x) && cmp(v, y)) && !(cmp(u, y) && cmp(v, x))) return 0;
-    return found[x] && found[y];
+    return ok[x] && ok[y];
 }
